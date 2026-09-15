@@ -7,3 +7,4 @@ dist
 *.log
 .vercel
 _archive_next
+.vercel
