@@ -20,8 +20,8 @@ function MisconfiguredLauncher() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[9999] flex justify-end p-4 sm:p-6">
-      <div className="pointer-events-auto bento relative w-[min(100vw-2rem,18rem)] rounded-2xl p-4 pr-10 text-sm">
-        <p className="mb-2 text-white/90">
+      <div className="pointer-events-auto relative w-[min(100vw-2rem,18rem)] rounded-xl border border-line bg-surface p-4 pr-10 text-sm shadow-lg shadow-black/40">
+        <p className="mb-2 text-fg">
           Voice demo isn&apos;t configured yet. Book a consultation instead.
         </p>
         <button
@@ -142,6 +142,13 @@ export function VoiceLauncher() {
   }, [startCall, endCall, callState])
 
   useEffect(() => {
+    // Tip bubble is desktop-only — annoying on mobile
+    const mq = window.matchMedia('(min-width: 768px)')
+    if (!mq.matches) {
+      setBubbleVisible(false)
+      return
+    }
+
     let showT: number
     let hideT: number
     let cycleT: number
@@ -180,14 +187,14 @@ export function VoiceLauncher() {
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[9999] flex justify-end p-4 sm:p-6">
       <div className="pointer-events-auto flex max-w-full flex-col items-end gap-3">
         {micError && (
-          <div className="bento relative w-[min(100vw-2rem,18rem)] rounded-2xl p-4 pr-10 text-sm">
-            <p className="mb-2 text-white/90">{micError}</p>
+          <div className="relative w-[min(100vw-2rem,18rem)] rounded-xl border border-line bg-surface p-4 pr-10 text-sm shadow-lg shadow-black/40">
+            <p className="mb-2 text-fg">{micError}</p>
             <button
               type="button"
               onClick={() => void openCalBooking()}
               className="text-accent underline underline-offset-2"
             >
-              Book a free consultation
+              Book a consultation
             </button>
             <button
               type="button"
@@ -207,36 +214,28 @@ export function VoiceLauncher() {
           <button
             type="button"
             onClick={() => void startCall()}
-            className="bento w-[min(100vw-2rem,15rem)] rounded-2xl px-4 py-3 text-left text-sm text-white shadow-xl"
+            className="hidden w-[min(100vw-2rem,15rem)] rounded-xl border border-line bg-surface px-4 py-3 text-left text-sm text-fg shadow-lg shadow-black/40 md:block"
           >
             Want to hear how we answer your calls? Talk to me.
           </button>
         )}
 
-        {/* Single premium launcher — dark capsule + accent orb */}
         <button
           type="button"
           onClick={() => (isActive ? void endCall() : void startCall())}
-          aria-label={isActive ? 'End call' : 'Talk to our receptionist'}
-          className={`group relative flex items-center gap-3 overflow-hidden rounded-full border pl-2 pr-5 transition-all duration-300 ${
+          aria-label={isActive ? 'End call' : 'Talk to a live voice agent'}
+          className={`group relative flex h-14 items-center gap-3 overflow-hidden rounded-2xl border pl-2 pr-5 transition-colors ${
             isActive
-              ? 'border-red-400/30 bg-red-500/15 text-white'
-              : 'border-line-strong bg-surface-2/90 text-fg shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur-xl hover:border-accent/40 hover:bg-surface-3'
-          } h-14`}
+              ? 'border-danger/40 bg-danger/10 text-fg'
+              : 'border-accent/25 bg-surface-2 text-fg shadow-[0_12px_36px_rgba(62,207,142,0.18)] hover:border-accent/45 hover:bg-surface-3'
+          }`}
         >
           <span
-            className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
-              isActive ? 'bg-red-500 text-white' : 'bg-accent text-bg'
+            className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+              isActive ? 'bg-danger text-bg' : 'bg-accent text-bg shadow-[0_6px_16px_rgba(62,207,142,0.35)]'
             }`}
           >
-            {!isActive && (
-              <span className="absolute inset-0 animate-ping rounded-full bg-accent/40" />
-            )}
-            {isActive ? (
-              <PhoneOff className="relative h-4 w-4" />
-            ) : (
-              <Mic className="relative h-4 w-4" />
-            )}
+            {isActive ? <PhoneOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
           </span>
           <span className="flex flex-col items-start leading-tight">
             <span className="text-[13px] font-medium tracking-tight">
@@ -244,7 +243,7 @@ export function VoiceLauncher() {
                 ? 'Connecting…'
                 : callState === 'live'
                   ? 'End call'
-                  : 'Talk to receptionist'}
+                  : 'Talk to voice agent'}
             </span>
             <span className="text-[10px] text-fg-dim">
               {isActive ? 'Tap to hang up' : 'Live voice demo'}

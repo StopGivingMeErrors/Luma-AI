@@ -2,12 +2,14 @@ import { useEffect, useId, useState } from 'react'
 import { siteConfig } from '@/lib/config'
 import { openReceptionist } from '@/lib/receptionist'
 import { openCalBooking } from '@/lib/cal'
+import { Button } from '@/components/ui/Button'
 
 const links = [
-  { label: 'Problem', href: '#problem' },
-  { label: 'Try live', href: '#try-live' },
+  { label: 'Solutions', href: '#solutions' },
+  { label: 'Live demo', href: '#try-live' },
   { label: 'Automations', href: '#automations' },
   { label: 'Pricing', href: '#pricing' },
+  { label: 'Why Luma', href: '#why-us' },
 ]
 
 export function Nav() {
@@ -16,7 +18,7 @@ export function Nav() {
   const menuId = useId()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
+    const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -32,20 +34,18 @@ export function Nav() {
   }, [open])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
       <nav
-        className={`mx-auto flex max-w-6xl items-center justify-between gap-3 transition-all duration-400 ${
-          scrolled || open
-            ? 'glass rounded-2xl border border-line px-3 py-2.5 sm:px-5'
-            : 'rounded-2xl px-1 py-2.5 sm:px-2'
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl px-3 py-2 transition-all duration-300 sm:px-4 ${
+          scrolled || open ? 'nav-glass' : 'border border-transparent bg-transparent'
         }`}
         aria-label="Primary"
       >
-        <a href="#main" className="display text-lg text-fg sm:text-xl">
+        <a href="#main" className="display text-[17px] text-fg sm:text-lg">
           {siteConfig.name}
         </a>
 
-        <div className="hidden items-center gap-6 lg:flex">
+        <div className="hidden items-center gap-7 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
@@ -58,25 +58,17 @@ export function Nav() {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
-          <button
-            type="button"
-            onClick={() => openReceptionist()}
-            className="rounded-full px-3 py-2 text-[13px] text-fg-muted transition-colors hover:text-fg"
-          >
+          <Button variant="ghost" size="sm" onClick={() => openReceptionist()}>
             Talk
-          </button>
-          <button
-            type="button"
-            onClick={() => void openCalBooking()}
-            className="rounded-full bg-fg px-4 py-2 text-[13px] font-medium text-bg transition-transform hover:scale-[1.02]"
-          >
-            Book a meeting
-          </button>
+          </Button>
+          <Button variant="inverse" size="sm" onClick={() => void openCalBooking()}>
+            Book a consultation
+          </Button>
         </div>
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-line md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-line md:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls={menuId}
@@ -93,7 +85,7 @@ export function Nav() {
       {open && (
         <div
           id={menuId}
-          className="glass mx-auto mt-2 max-w-6xl rounded-2xl border border-line p-5 md:hidden"
+          className="nav-glass mx-auto mt-2 max-w-6xl rounded-2xl p-5 md:hidden"
         >
           <div className="flex flex-col gap-3">
             {links.map((l) => (
@@ -106,16 +98,16 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
-            <button
-              type="button"
+            <Button
+              variant="inverse"
+              className="mt-2 w-full"
               onClick={() => {
                 setOpen(false)
                 void openCalBooking()
               }}
-              className="mt-2 rounded-full bg-fg px-5 py-3 text-center text-sm font-medium text-bg"
             >
-              Book a meeting
-            </button>
+              Book a consultation
+            </Button>
           </div>
         </div>
       )}

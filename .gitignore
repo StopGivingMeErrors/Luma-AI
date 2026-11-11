@@ -7,4 +7,6 @@ dist
 *.log
 .vercel
 _archive_next
-.vercel
+.impeccable/config.local.json
+.impeccable/review/
+.impeccable/live/

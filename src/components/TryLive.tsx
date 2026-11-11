@@ -1,65 +1,54 @@
-import { motion } from 'framer-motion'
 import { Phone } from 'lucide-react'
 import { siteConfig } from '@/lib/config'
 import { openReceptionist } from '@/lib/receptionist'
+import { Button } from '@/components/ui/Button'
+import { Section } from '@/components/ui/Section'
 
 export function TryLive() {
   return (
-    <section id="try-live" className="px-4 py-8 sm:px-6 sm:py-12">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="bento relative overflow-hidden px-5 py-10 sm:px-10 sm:py-14 md:px-14 md:py-20"
-          style={{ borderRadius: '1.75rem' }}
-        >
-          <div className="pattern-dots pointer-events-none absolute inset-0 opacity-40" />
-          <div className="pointer-events-none absolute -right-16 top-0 h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
+    <Section
+      id="try-live"
+      title="Try a live Voice Agent"
+      description={`Hear the same class of voice agent we deploy for ${siteConfig.niche}. Uses your microphone · about 30 seconds.`}
+    >
+      <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2">
+        <div className="surface panel-live p-6 sm:p-8">
+          <p className="text-sm leading-relaxed text-fg-muted">
+            Ask about booking, hours, or a last-minute reservation. This is a real web voice call —
+            not a recorded sample.
+          </p>
+          <Button className="mt-8" size="lg" onClick={() => openReceptionist()}>
+            <Phone className="h-4 w-4" />
+            Start talking
+          </Button>
+        </div>
 
-          <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
+        <div className="surface p-6 sm:p-8">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft text-accent">
+              <Phone className="h-4 w-4" />
+            </span>
             <div>
-              <p className="label mb-3">Try it live</p>
-              <h2 className="display text-3xl text-white sm:text-4xl md:text-5xl text-balance">
-                Talk to our receptionist now
-              </h2>
-              <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/75 sm:text-base">
-                This is the exact receptionist we build for {siteConfig.niche}. Talk to it.
-              </p>
-              <button
-                type="button"
-                onClick={() => openReceptionist()}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-bg transition-all hover:brightness-110 sm:w-auto"
-              >
-                <Phone className="h-4 w-4" />
-                Start talking
-              </button>
-            </div>
-
-            <div
-              className="bento relative p-6 sm:p-8"
-              style={{ borderRadius: '1.5rem 2.75rem 1.5rem 2.75rem' }}
-            >
-              <div className="pattern-rings pointer-events-none absolute inset-0 opacity-50" />
-              <div className="relative mb-5 flex items-center gap-3">
-                <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-accent/20" />
-                  <Phone className="relative h-4 w-4 text-accent" />
-                </span>
-                <div>
-                  <p className="display text-xl text-white">Live demo</p>
-                  <p className="text-xs text-white/55">Uses your microphone · ~30 seconds</p>
-                </div>
-              </div>
-              <p className="relative text-sm leading-relaxed text-white/80">
-                Ask about booking, hours, or a last-minute reservation. Hear how a real front desk
-                sounds — without waiting for a sales call.
-              </p>
+              <p className="font-medium text-fg">Live voice demo</p>
+              <p className="text-xs text-fg-dim">Secure browser call · Retell</p>
             </div>
           </div>
-        </motion.div>
+          <ul className="mt-8 space-y-3 text-sm text-fg-muted">
+            <li className="flex gap-2">
+              <span className="text-accent">·</span>
+              Answers in a natural front-desk voice
+            </li>
+            <li className="flex gap-2">
+              <span className="text-accent">·</span>
+              Handles booking-style questions
+            </li>
+            <li className="flex gap-2">
+              <span className="text-accent">·</span>
+              Same stack we wire to your number
+            </li>
+          </ul>
+        </div>
       </div>
-    </section>
+    </Section>
   )
 }

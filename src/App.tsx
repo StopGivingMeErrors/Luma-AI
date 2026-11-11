@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { ProblemBento } from './components/ProblemBento'
+import { Solutions } from './components/Solutions'
+import { Problem } from './components/Problem'
 import { TryLive } from './components/TryLive'
 import { Automations } from './components/Automations'
 import { HowItWorks } from './components/HowItWorks'
@@ -20,14 +21,15 @@ export default function App() {
       <CalProvider />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[10000] focus:rounded-xl focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
       >
         Skip to content
       </a>
       <Nav />
       <main id="main" className="pb-24 sm:pb-20">
         <Hero />
-        <ProblemBento />
+        <Solutions />
+        <Problem />
         <TryLive />
         <Automations />
         <HowItWorks />
