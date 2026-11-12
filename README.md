@@ -1,6 +1,21 @@
 # Luma AI
 
-Premium one-page site for Luma AI — AI receptionists for hotels, restaurants, salons, barbershops, and clinics across Europe.
+Marketing site for Luma AI — voice agents, chat agents, and custom workflow automation for businesses across Europe, including a flagship receptionist use case for hotels, restaurants, salons, barbershops, and clinics.
+
+Live site: [lumaai.online](https://lumaai.online/)
+
+![Hero](docs/screenshots/01-hero.png)
+
+## Screenshots
+
+| | |
+| --- | --- |
+| ![Solutions](docs/screenshots/02-solutions.png) | ![Try a live Voice Agent](docs/screenshots/03-try-live.png) |
+| **Solutions** — Voice AI, Chat AI, and Workflow Automation. | **Try a live Voice Agent** — in-browser demo of the same class of agent used in deployments. |
+| ![Automations](docs/screenshots/04-automations.png) | ![How engagement works](docs/screenshots/05-how-it-works.png) |
+| **Automations** — niche workflow canvas for hotels, restaurants, salons, clinics, and barbers. | **How engagement works** — design the agents, connect existing tools, then run with coverage. |
+| ![Pricing](docs/screenshots/06-pricing.png) | |
+| **Pricing** — one full-service plan: €300/month, 600 minutes included, €0.75 overage. | |
 
 Stack: **Vite + React + Tailwind CSS v4**
 
